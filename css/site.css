@@ -201,3 +201,28 @@ p{margin:0}
   100%{transform:translate3d(var(--dx),-150vh,0) rotate(var(--r1));opacity:0}
 }
 @media(prefers-reduced-motion:reduce){.petals{display:none}}
+
+/* hero twine animation */
+.hero-photo.still{display:none}
+.twine{position:absolute;left:8%;top:7%;width:84%;height:86%;pointer-events:none;border-radius:4px;overflow:hidden}
+.twine path{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 14s linear infinite}
+.twine .t-shadow{stroke:rgba(60,35,15,.28);stroke-width:13}
+.twine .t-base{stroke:#8f6a48;stroke-width:9}
+.twine .t-twist{stroke:#6b4a2e;stroke-width:9;stroke-dasharray:4 5;stroke-dashoffset:0;stroke-linecap:butt;opacity:0}
+.twine .t-light{stroke:#d6b48f;stroke-width:3}
+.twine-loop{animation:twinefade 14s linear infinite}
+.knot{opacity:0;animation:knot 14s linear infinite}
+.seg-hl path{animation-name:draw-hl}.seg-hr path{animation-name:draw-hr}.seg-vt path{animation-name:draw-vt}.seg-vb path{animation-name:draw-vb}
+.seg-hl .t-twist{animation-name:twist-hl}.seg-hr .t-twist{animation-name:twist-hr}.seg-vt .t-twist{animation-name:twist-vt}.seg-vb .t-twist{animation-name:twist-vb}
+@keyframes draw-hl{0%,4.3%{stroke-dashoffset:1}15.7%,100%{stroke-dashoffset:0}}
+@keyframes draw-hr{0%,15.7%{stroke-dashoffset:1}22.9%,100%{stroke-dashoffset:0}}
+@keyframes draw-vt{0%,24.3%{stroke-dashoffset:1}29.3%,100%{stroke-dashoffset:0}}
+@keyframes draw-vb{0%,29.3%{stroke-dashoffset:1}39.3%,100%{stroke-dashoffset:0}}
+/* the twist strand cannot use dashoffset for drawing (it is already dashed), so it fades in as each run completes */
+@keyframes twist-hl{0%,15%{opacity:0}17%,100%{opacity:.55}}
+@keyframes twist-hr{0%,22%{opacity:0}24%,100%{opacity:.55}}
+@keyframes twist-vt{0%,29%{opacity:0}30.5%,100%{opacity:.55}}
+@keyframes twist-vb{0%,39%{opacity:0}40.5%,100%{opacity:.55}}
+@keyframes knot{0%,39%{opacity:0}43%{opacity:.5}49%,100%{opacity:0}}
+@keyframes twinefade{0%,80%{opacity:1}90%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero-photo.still{display:block}.hero-photo.animated,.twine{display:none}}
