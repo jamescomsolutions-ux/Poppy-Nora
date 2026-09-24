@@ -45,3 +45,25 @@ function sendBrief(e,byEmail){
   }
   return false;
 }
+
+// Floating poppies: slow drift upward, fade in, hold, fade out.
+(function(){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var layer=document.createElement('div');layer.className='petals';layer.setAttribute('aria-hidden','true');
+  var n=window.innerWidth<700?4:7;
+  for(var i=0;i<n;i++){
+    var img=document.createElement('img');img.src='img/poppy.webp';img.alt='';
+    var size=140+Math.random()*220;
+    var dur=55+Math.random()*40;
+    img.style.width=size+'px';
+    img.style.left=(Math.random()*90)+'vw';
+    img.style.setProperty('--dx',((Math.random()*16)-8)+'vw');
+    img.style.setProperty('--r0',((Math.random()*30)-15)+'deg');
+    img.style.setProperty('--r1',((Math.random()*30)-15)+'deg');
+    img.style.setProperty('--peak',(0.28+Math.random()*0.17).toFixed(2));
+    img.style.animationDuration=dur+'s';
+    img.style.animationDelay=(-Math.random()*dur)+'s';
+    layer.appendChild(img);
+  }
+  document.body.appendChild(layer);
+})();
