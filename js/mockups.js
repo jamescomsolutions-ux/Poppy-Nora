@@ -1,0 +1,35 @@
+// Products that support the logo preview. area: print area as a percentage of the photo
+// (x and y are the centre, w and h the size, r the rotation in degrees).
+// surface: light or dark, finish: the suggested branding finish.
+window.PN_MOCKUPS=[
+  {id:"GFT-06-IW",code:"GFT-06-IW",name:"500ml Coloured Vacuum Flask",sup:"Barron",label:"Flask",img:"img/p-gft-06-iw.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20500ml%20Coloured%20Vacuum%20Flask%20%28GFT-06-IW%29.",
+   area:{x:49.5,y:50,w:17,h:24,r:0},surface:"dark",finish:"white"},
+  {id:"GFT-06-LM",code:"GFT-06-LM",name:"500ml Double Wall Vacuum Flask",sup:"Barron",label:"Steel bottle",img:"img/p-gft-06-lm.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20500ml%20Double%20Wall%20Vacuum%20Flask%20%28GFT-06-LM%29.",
+   area:{x:50,y:61,w:17,h:18,r:0},surface:"dark",finish:"white"},
+  {id:"GFT-06-IS",code:"GFT-06-IS",name:"450ml Travel Mug",sup:"Barron",label:"Travel mug",img:"img/p-gft-06-is.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20450ml%20Travel%20Mug%20%28GFT-06-IS%29.",
+   area:{x:56,y:51,w:24,h:20,r:0},surface:"light",finish:"black"},
+  {id:"GFT-07-HC",code:"GFT-07-HC",name:"A5 Notebook With Stationery Set",sup:"Barron",label:"Kraft notebook",img:"img/p-gft-07-hc.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20A5%20Notebook%20With%20Stationery%20Set%20%28GFT-07-HC%29.",
+   area:{x:50,y:44,w:40,h:22,r:0},surface:"light",finish:"full"},
+  {id:"GFT-19-LG",code:"GFT-19-LG",name:"Two Tone Notebook",sup:"Barron",label:"Two tone notebook",img:"img/p-gft-19-lg.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20Two%20Tone%20Notebook%20%28GFT-19-LG%29.",
+   area:{x:42,y:33,w:36,h:22,r:0},surface:"dark",finish:"white"},
+  {id:"BAG-03-KG",code:"BAG-03-KG",name:"Everyday Shopper Non-Woven",sup:"Barron",label:"Tote bag",img:"img/p-bag-03-kg.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20Everyday%20Shopper%20Non-Woven%20%28BAG-03-KG%29.",
+   area:{x:50,y:68,w:30,h:24,r:0},surface:"dark",finish:"white"},
+  {id:"U22600OC",code:"U22600OC",name:"Uflex 6 Panel Outdoor Cap",sup:"Uflex · Headwear24",label:"Cap",img:"img/p-u22600oc.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20Uflex%206%20Panel%20Outdoor%20Cap%20%28U22600OC%29.",
+   area:{x:41,y:38,w:22,h:12,r:-6},surface:"light",finish:"full"},
+  {id:"GS-AL-8-A",code:"GS-AL-8-A",name:"Mens Basic Pique Golf Shirt",sup:"Altitude · Amrod",label:"Golf shirt",img:"img/p-gs-al-8-a.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20Mens%20Basic%20Pique%20Golf%20Shirt%20%28GS-AL-8-A%29.",
+   area:{x:63.5,y:35.5,w:10,h:7,r:0},surface:"light",finish:"full"},
+  {id:"Brooklyn Zipped Hoodie",code:"Brooklyn Zipped Hoodie",name:"Brooklyn Zipped Hoodie",sup:"FWRD · Captivity",label:"Hoodie",img:"img/p-brooklyn-zipped-hoodie.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20Brooklyn%20Zipped%20Hoodie%20%28Brooklyn%20Zipped%20Hoodie%29.",
+   area:{x:65,y:37,w:12,h:7,r:0},surface:"dark",finish:"white"},
+  {id:"JAC-19-PA",code:"JAC-19-PA",name:"Cotton Bomber Sherpa-Lined Jacket Mens",sup:"Barron",label:"Bomber jacket",img:"img/p-jac-19-pa.webp",
+   ask:"https://wa.me/27827239248?text=Hi%20Poppy%20and%20Nora%2C%20I%27d%20like%20to%20ask%20about%20the%20Cotton%20Bomber%20Sherpa-Lined%20Jacket%20Mens%20%28JAC-19-PA%29.",
+   area:{x:62,y:35,w:13,h:8,r:0},surface:"dark",finish:"white"}
+];

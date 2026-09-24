@@ -55,7 +55,9 @@ function sendBrief(e,byEmail){
 (function(){
   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   var layer=document.createElement('div');layer.className='petals';layer.setAttribute('aria-hidden','true');
-  var n=window.innerWidth<700?4:7;
+  // Fewer and fainter where people are reading lists or filling in forms
+  var quiet=!!document.querySelector('#brief,main[data-range],main[data-quiet]');
+  var n=quiet?(window.innerWidth<700?2:3):(window.innerWidth<700?4:7);
   for(var i=0;i<n;i++){
     var img=document.createElement('img');img.src='img/poppy.webp';img.alt='';
     var size=140+Math.random()*220;
@@ -65,7 +67,7 @@ function sendBrief(e,byEmail){
     img.style.setProperty('--dx',((Math.random()*16)-8)+'vw');
     img.style.setProperty('--r0',((Math.random()*30)-15)+'deg');
     img.style.setProperty('--r1',((Math.random()*30)-15)+'deg');
-    img.style.setProperty('--peak',(0.28+Math.random()*0.17).toFixed(2));
+    img.style.setProperty('--peak',(quiet?0.12+Math.random()*0.08:0.28+Math.random()*0.17).toFixed(2));
     img.style.animationDuration=dur+'s';
     img.style.animationDelay=(-Math.random()*dur)+'s';
     layer.appendChild(img);
@@ -101,6 +103,8 @@ function sendBrief(e,byEmail){
   }
   function toggle(p){if(has(p.id))remove(p.id);else add(p);}
   window.pnShortlistItems=read;
+  var listeners=[];
+  window.pnShortlist={items:read,has:has,toggle:toggle,onChange:function(fn){listeners.push(fn);}};
 
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
   var ICON={
@@ -186,6 +190,7 @@ function sendBrief(e,byEmail){
     '<div class="qv-tags"></div><div class="sup"></div><h2 id="qv-title"></h2><p class="qv-code muted small"></p>'+
     '<p class="qv-note">Prices on request. Every item can be branded.</p>'+
     '<div class="actions"><button type="button" class="btn btn-primary" data-toggle></button><a class="btn btn-ghost" data-ask target="_blank" rel="noopener">'+ICON.wa+' Ask on WhatsApp</a></div>'+
+    '<a class="more qv-mock" hidden>See your logo on it</a>'+
     '</div></div>';
   if(dialogOK)document.body.appendChild(qv);
   var qvProduct=null,qvOpener=null;
@@ -197,6 +202,8 @@ function sendBrief(e,byEmail){
     qv.querySelector('.qv-code').textContent=p.code&&p.code!==p.name?'Code '+p.code:'';
     qv.querySelector('.qv-tags').innerHTML=(p.isNew?'<span class="tag new">New</span>':'')+(p.catName?'<span class="tag">'+esc(p.catName)+'</span>':'');
     qv.querySelector('[data-ask]').href=p.ask;
+    var mock=qv.querySelector('.qv-mock'),canMock=(window.PN_MOCKUPS||[]).some(function(m){return m.id===p.id;});
+    mock.hidden=!canMock;if(canMock)mock.href='logo-preview.html#'+encodeURIComponent(p.id);
     syncQV();qv.showModal();
   }
   function syncQV(){
@@ -256,6 +263,7 @@ function sendBrief(e,byEmail){
       b.innerHTML=on?ICON.check+'<span>Shortlisted</span>':ICON.plus+'<span>Shortlist</span>';
     });
     syncQV();
+    listeners.forEach(function(fn){fn(l);});
     if(briefList){
       if(n){
         briefList.className='brief-list';
@@ -372,4 +380,23 @@ function sendBrief(e,byEmail){
     var open=tools.classList.toggle('open');tog.setAttribute('aria-expanded',open?'true':'false');measure();
   });
   apply(false);
+})();
+
+// Phone only: Brief us and WhatsApp bar at the foot of the screen, out of the way while scrolling down
+(function(){
+  if(document.getElementById('brief'))return;
+  var wa=document.querySelector('.wa-float');if(!wa)return;
+  var bar=document.createElement('div');bar.className='m-bar';
+  bar.innerHTML='<a class="btn btn-primary" href="brief.html">Brief us</a><a class="btn btn-wa" href="'+wa.getAttribute('href')+'" target="_blank" rel="noopener">'+wa.innerHTML+' WhatsApp</a>';
+  document.body.appendChild(bar);document.body.classList.add('has-mbar');
+  var last=window.pageYOffset,ticking=false;
+  window.addEventListener('scroll',function(){
+    if(ticking)return;ticking=true;
+    requestAnimationFrame(function(){
+      var y=window.pageYOffset,atEnd=window.innerHeight+y>=document.documentElement.scrollHeight-4;
+      if(Math.abs(y-last)>6){bar.classList.toggle('away',y>last&&y>120&&!atEnd);last=y;}
+      ticking=false;
+    });
+  },{passive:true});
+  bar.addEventListener('focusin',function(){bar.classList.remove('away');});
 })();
