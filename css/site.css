@@ -344,7 +344,8 @@ a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{ou
 @media(max-width:860px){.case{grid-template-columns:1fr;gap:20px}.case.flip .case-photos{order:0}.case-photos{height:260px}}
 
 /* logo preview */
-.lp-callout{margin-top:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px}
+.lp-callout{margin-top:18px;font-size:15px}
+.lp-callout .tag{margin-right:8px;vertical-align:2px}
 .lp-callout a{font-weight:700}
 .lp-promo p{margin-bottom:0}
 .lp-tool{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:start;padding-bottom:clamp(48px,6vw,96px)}
