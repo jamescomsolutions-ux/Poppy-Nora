@@ -11,7 +11,9 @@ document.addEventListener('click',function(e){
 });
 // Preselect the occasion pill from ?occasion=... on the brief page
 (function(){
-  var m=(location.search||location.hash).match(/occasion=([a-z-]+)/);
+  var q=location.search+location.hash;
+  if(/type=custom/.test(q)){var kr=document.querySelector('input[name=kind][value="Made to order"]');if(kr)kr.checked=true;}
+  var m=q.match(/occasion=([a-z-]+)/);
   if(!m)return;
   var map={'year-end':'Year-end gifts','onboarding':'Onboarding packs','events':'Conferences and events','thank-you':'Client thank-yous','milestones':'Staff milestones','clothing':'Branded clothing'};
   var v=map[m[1]];if(!v)return;
@@ -25,25 +27,52 @@ function briefText(){
     'Organisation: '+(d.get('org')||''),
     'Email: '+(d.get('email')||''),
     'Phone: '+(d.get('phone')||''),
+    'Type of order: '+(d.get('kind')||''),
     'Occasion: '+(d.get('occasion')||''),
     'People: '+(d.get('qty')||''),
     'Budget per person: '+(d.get('budget')||''),
     'Needed by: '+(d.get('date')||''),
     'Branding: '+(d.get('branding')||''),
+    'Branding method: '+(d.get('decoration')||''),
     'Notes: '+(d.get('notes')||'')];
   return lines.join('\n');
 }
+function goStep(n){
+  var f=document.getElementById('brief');if(!f)return;
+  if(n===2){
+    var req=f.querySelectorAll('[data-step="1"] input[required]');
+    for(var i=0;i<req.length;i++){if(!req[i].checkValidity()){req[i].reportValidity();return;}}
+  }
+  var steps=f.querySelectorAll('.step');
+  for(var s=0;s<steps.length;s++){steps[s].hidden=steps[s].getAttribute('data-step')!==String(n);}
+  var dots=f.querySelectorAll('.stepdot');
+  for(var d=0;d<dots.length;d++){dots[d].classList.toggle('on',dots[d].getAttribute('data-dot')===String(n));}
+  f.scrollIntoView({behavior:'smooth',block:'start'});
+}
 function sendBrief(e,byEmail){
   if(e)e.preventDefault();
-  var f=document.getElementById('brief');
-  if(f&&!f.reportValidity())return false;
+  var f=document.getElementById('brief');if(!f)return false;
+  var req=f.querySelectorAll('input[required]');
+  for(var i=0;i<req.length;i++){if(!req[i].checkValidity()){goStep(1);req[i].reportValidity();return false;}}
   var text=briefText();
   if(byEmail){
-    location.href='mailto:[BRIEF EMAIL ADDRESS]?subject='+encodeURIComponent('Gifting brief')+'&body='+encodeURIComponent(text);
+    location.href='mailto:[BRIEF EMAIL ADDRESS]?subject='+encodeURIComponent('Brief for Poppy and Nora')+'&body='+encodeURIComponent(text);
   }else{
     window.open('https://wa.me/27827239248?text='+encodeURIComponent(text),'_blank','noopener');
   }
+  var hide=f.querySelectorAll('.step,.steps-head');
+  for(var s=0;s<hide.length;s++){hide[s].hidden=true;}
+  var nm=(new FormData(f).get('name')||'').split(' ')[0];
+  var nmEl=document.getElementById('brief-name');if(nmEl)nmEl.textContent=nm?', '+nm:'';
+  var done=document.getElementById('brief-done');if(done)done.hidden=false;
   return false;
+}
+function resetBrief(){
+  var f=document.getElementById('brief');if(!f)return;
+  f.reset();
+  var head=f.querySelector('.steps-head');if(head)head.hidden=false;
+  var done=document.getElementById('brief-done');if(done)done.hidden=true;
+  goStep(1);
 }
 
 // Floating poppies: slow drift upward, fade in, hold, fade out.
